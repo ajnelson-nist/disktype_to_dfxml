@@ -1,0 +1,7 @@
+--- .../cfreds_2015_data_leakage_rm3.img
+Regular file, size 102.6 MiB (107546624 bytes)
+UDF file system
+  Sector size 2048 bytes
+  Volume name "UDF Volume"
+  UDF version 2.01
+

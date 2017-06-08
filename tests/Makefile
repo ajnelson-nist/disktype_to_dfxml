@@ -18,7 +18,8 @@ PYTHON3 ?= $(shell which python3 2>/dev/null || which python3.5)
 all:
 
 check: \
-  check-cfreds-macwd.done.log
+  check-cfreds-macwd.done.log \
+  check-cfreds_2015_data_leakage_rm3.done.log
 	@echo Tests passed!
 
 check-cfreds-macwd.done.log: \
@@ -26,6 +27,10 @@ check-cfreds-macwd.done.log: \
   cfreds-macwd.dfxml
 	$(PYTHON3) check-cfreds-macwd.py cfreds-macwd.dfxml
 	touch $@
+
+check-cfreds_2015_data_leakage_rm3.done.log: \
+  cfreds_2015_data_leakage_rm3.dfxml
+	test 1 -eq $$(grep ftype_str $< | wc -l)
 
 check-rx_partition_fs_type_code_and_label.done.log: \
   ../disktype_to_dfxml.py \
