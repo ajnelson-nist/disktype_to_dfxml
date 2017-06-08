@@ -1,0 +1,10 @@
+
+--- .../2010-dftt-test14-iso-dirtree2.iso
+Regular file, size 366 KiB (374784 bytes)
+ISO9660 file system
+  Volume name "ISO9660 Orphan Test 2"
+  Application "GENISOIMAGE ISO 9660/HFS FILESYSTEM CREATOR (C) 1993 E.YOUNGDALE (C) 1997-2006 J.PEARSON/J.SCHILLING (C) 2006-2007 CDRKIT TEAM"
+  Data size 366 KiB (374784 bytes, 183 blocks of 2 KiB)
+  Joliet extension, volume name "ISO9660 Orphan 2"
+  Joliet extension, volume name "ISO9660 Orphan2"
+

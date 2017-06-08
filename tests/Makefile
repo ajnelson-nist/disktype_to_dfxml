@@ -23,6 +23,7 @@ check: \
   check-2009-m57-patents-redacted-jo-favorites-usb-2009-12-11.done.log \
   check-2009-m57-patents-redacted-terry-2009-12-11-002.done.log \
   check-2009-nps-ubnist1-gen0.done.log \
+  check-2010-dftt-test14-iso-dirtree2.done.log \
   check-2011-nps-2tb.done.log \
   check-2012-ngdc-tracy-phone-2012-07-03-initial.done.log \
   check-2014-nps-xbox360-drive2-time0.done.log \
@@ -48,6 +49,10 @@ check-2009-m57-patents-redacted-terry-2009-12-11-002.done.log: \
 check-2009-nps-ubnist1-gen0.done.log: \
   2009-nps-ubnist1-gen0.dfxml
 	test 1 -eq $$(grep ftype_str $< | wc -l)
+
+check-2010-dftt-test14-iso-dirtree2.done.log: \
+  2010-dftt-test14-iso-dirtree2.dfxml
+	test 1 -eq $$(grep ftype_str $< | grep ISO9660 | wc -l)
 
 check-2011-nps-2tb.done.log: \
   2011-nps-2tb.dfxml
