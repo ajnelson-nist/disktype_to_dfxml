@@ -1,0 +1,44 @@
+--- .../cfreds-macwd.img
+Regular file, size 98.44 MiB (103219200 bytes)
+Apple partition map, 10 entries
+Partition 1: 31.50 KiB (32256 bytes, 63 sectors from 1)
+  Type "Apple_partition_map"
+Partition 2: 16.09 MiB (16871424 bytes, 32952 sectors from 64)
+  Type "Apple_HFS"
+  HFS Plus file system
+    Volume size 16.09 MiB (16871424 bytes, 4119 blocks of 4 KiB)
+    Volume name "MacOSXJ"
+Partition 3: 16.09 MiB (16871424 bytes, 32952 sectors from 33016)
+  Type "Apple_HFS"
+  HFS Plus file system
+    Volume size 16.09 MiB (16871424 bytes, 4119 blocks of 4 KiB)
+    Volume name "MacOSX"
+Partition 4: 7.277 MiB (7630848 bytes, 14904 sectors from 65968)
+  Type "Apple_Free"
+  First 100 KiB are blank
+Partition 5: 16.86 MiB (17674240 bytes, 34520 sectors from 80872)
+  Type "Apple_HFS"
+  HFS Plus file system
+    Volume size 16.86 MiB (17674240 bytes, 4315 blocks of 4 KiB)
+    Volume name "MacOSXD"
+Partition 6: 7.660 MiB (8032256 bytes, 15688 sectors from 115392)
+  Type "Apple_Free"
+  First 100 KiB are blank
+Partition 7: 17.24 MiB (18075648 bytes, 35304 sectors from 131080)
+  Type "Apple_HFS"
+  HFS file system
+    Volume name "MacOSS"
+    Volume size 17.23 MiB (18068480 bytes, 35290 blocks of 512 bytes)
+Partition 8: 8.500 MiB (8912896 bytes, 17408 sectors from 166384)
+  Type "Apple_Boot"
+  HFS Plus file system
+    Volume size 8.500 MiB (8912896 bytes, 2176 blocks of 4 KiB)
+    Volume name "Boot OSX"
+Partition 9: 8.688 MiB (9109504 bytes, 17792 sectors from 183792)
+  Type "Apple_UFS"
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/Volumes/UFS"
+    Volume name "UFS" (in label v1)
+Partition 10: 8 KiB (8192 bytes, 16 sectors from 201584)
+  Type "Apple_Free"
+

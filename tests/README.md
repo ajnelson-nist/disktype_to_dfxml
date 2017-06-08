@@ -1,0 +1,1 @@
+The purpose of the tests in this directory is mainly to verify that `disktype_to_dfxml.py` runs on the supplied sample data.  In some cases, further details (e.g. file system starting offsets) are computed by hand from `disktype` output, with some out-of-band verification on the source data, and put into more thorough verification scripts.
