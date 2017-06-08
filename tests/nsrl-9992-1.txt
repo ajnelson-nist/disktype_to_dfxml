@@ -1,0 +1,15 @@
+
+--- .../nsrl-9992-1.img
+Regular file, size 6.498 GiB (6977122304 bytes)
+ISO9660 file system
+  Volume name "JUL03ENGUNIV"
+  Publisher   "MICROSOFT CORPORATION"
+  Preparer    "MICROSOFT CORPORATION, ONE MICROSOFT WAY, REDMOND WA 98052, (425) 882-8080"
+  Application "CDIMAGE 2.46 (10/12/2000 TM)"
+  Data size 6.498 GiB (6977120256 bytes, 3406797 blocks of 2 KiB)
+  El Torito boot record, catalog at 20
+    Bootable non-emulated image, starts at 10652, preloads 2 KiB
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      Windows NTLDR boot loader
+  Joliet extension, volume name "JUL03ENGUNIV"
+

@@ -1,0 +1,25 @@
+
+--- .../nsrl-1025-2.img
+Regular file, size 642.1 MiB (673255424 bytes)
+Solaris SPARC disklabel
+Partition 0: 0.979 GiB (1050771456 bytes, 2052288 sectors from 0)
+  Type 2
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "SOLCDV3D2"
+    Preparer    "Creative Digital Research"
+    Data size 636.4 MiB (667316224 bytes, 325838 blocks of 2 KiB)
+    Additional Primary Volume Descriptor
+    Joliet extension, volume name "SOLCDV3D2"
+  UFS file system, 8 KiB offset, big-endian
+Partition 2: 0.979 GiB (1050771456 bytes, 2052288 sectors from 0)
+  Type 5
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "SOLCDV3D2"
+    Preparer    "Creative Digital Research"
+    Data size 636.4 MiB (667316224 bytes, 325838 blocks of 2 KiB)
+    Additional Primary Volume Descriptor
+    Joliet extension, volume name "SOLCDV3D2"
+  UFS file system, 8 KiB offset, big-endian
+

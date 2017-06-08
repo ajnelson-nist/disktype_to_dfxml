@@ -1,0 +1,14 @@
+
+--- .../nsrl-10198-1.img
+Regular file, size 272.3 MiB (285491200 bytes)
+ISO9660 file system
+  Volume name "NSW2004"
+  Data size 272.0 MiB (285177856 bytes, 139247 blocks of 2 KiB)
+  El Torito boot record, catalog at 137814
+    Bootable 2.88M floppy image, starts at 137815, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      Windows / MS-DOS boot loader
+      FAT12 file system (hints score 5 of 5)
+        Volume size 2.796 MiB (2931712 bytes, 2863 clusters of 1 KiB)
+        Volume name "EMERGENCY"
+

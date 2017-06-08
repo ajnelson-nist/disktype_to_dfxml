@@ -1,0 +1,15 @@
+--- .../nsrl-31595-1.img
+Regular file, size 36.33 MiB (38092800 bytes)
+DOS/MBR partition map
+Partition 1: 1005 MiB (1053818880 bytes, 2058240 sectors from 2048)
+  Type 0x05 (Extended)
+  Signature missing
+ISO9660 file system
+  Volume name "VOLUME_1"
+  Preparer    "Creative Digital Research"
+  Data size 36.03 MiB (37779456 bytes, 18447 blocks of 2 KiB)
+  Additional Primary Volume Descriptor
+  Joliet extension, volume name "VOLUME_1"
+UFS file system, 8 KiB offset, big-endian
+  Last mounted at "/LOADS"
+

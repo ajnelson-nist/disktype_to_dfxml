@@ -1,0 +1,12 @@
+
+--- .../nsrl-10003-2.img
+Regular file, size 309.7 MiB (324775936 bytes)
+ISO9660 file system
+  Volume name "ADSKMAP6"
+  Publisher   "AUTODESK"
+  Preparer    "AUTODESK"
+  Application "AUTOCAD"
+  Data size 302.7 MiB (317366272 bytes, 154964 blocks of 2 KiB)
+  Additional Primary Volume Descriptor
+  Additional Primary Volume Descriptor
+

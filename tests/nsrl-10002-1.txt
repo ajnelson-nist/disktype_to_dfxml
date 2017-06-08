@@ -1,0 +1,33 @@
+
+--- .../nsrl-10002-1.img
+Regular file, size 652.0 MiB (683651072 bytes)
+Apple partition map, 10 entries
+Partition 1: 31.50 KiB (32256 bytes, 63 sectors from 1)
+  Type "Apple_partition_map"
+Partition 2: 28 KiB (28672 bytes, 56 sectors from 64)
+  Type "Apple_Driver43"
+Partition 3: 70 KiB (71680 bytes, 140 sectors from 120)
+  Type "Apple_Driver43_CD"
+Partition 4: 0 bytes (0 sectors from 0)
+  Type "Apple_Void"
+Partition 5: 28 KiB (28672 bytes, 56 sectors from 260)
+  Type "Apple_Driver_ATAPI"
+Partition 6: 70 KiB (71680 bytes, 140 sectors from 316)
+  Type "Apple_Driver_ATAPI"
+Partition 7: 256 KiB (262144 bytes, 512 sectors from 456)
+  Type "Apple_Patches"
+Partition 8: 0 bytes (0 sectors from 0)
+  Type "Apple_Void"
+Partition 9: 646.5 MiB (677928960 bytes, 1324080 sectors from 968)
+  Type "Apple_HFS"
+  HFS file system
+    Volume name "Mac_OS_X_CD"
+    Volume size 646.5 MiB (677855232 bytes, 9194 blocks of 72 KiB)
+  HFS wrapper for HFS Plus
+    HFS Plus file system
+      Volume size 646.1 MiB (677486592 bytes, 165402 blocks of 4 KiB)
+      Volume name "Install CD"
+Partition 10: 4 KiB (4096 bytes, 8 sectors from 1325048)
+  Type "Apple_Free"
+  Blank disk/medium
+

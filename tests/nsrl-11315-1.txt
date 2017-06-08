@@ -1,0 +1,15 @@
+
+--- .../nsrl-11315-1.img
+Regular file, size 608.3 MiB (637870080 bytes)
+ISO9660 file system
+  Volume name "USG063KEUMB4_D1"
+  Data size 601.9 MiB (631156736 bytes, 308182 blocks of 2 KiB)
+  El Torito boot record, catalog at 21
+    Bootable 1.44M floppy image, starts at 22, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      Windows 95/98/ME boot loader
+      FAT12 file system (hints score 5 of 5)
+        Volume size 1.390 MiB (1457664 bytes, 2847 clusters of 512 bytes)
+  Additional Primary Volume Descriptor
+  Additional Primary Volume Descriptor
+

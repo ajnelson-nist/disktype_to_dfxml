@@ -1,0 +1,19 @@
+
+--- .../nsrl-10714-1.img
+Regular file, size 643.8 MiB (675028992 bytes)
+Apple partition map, 2 entries
+Partition 1: 31.50 KiB (32256 bytes, 63 sectors from 1)
+  Type "Apple_partition_map"
+Partition 2: 641.7 MiB (672849920 bytes, 1314160 sectors from 3216)
+  Type "Apple_HFS"
+  HFS Plus file system
+    Volume size 641.7 MiB (672849920 bytes, 328540 blocks of 2 KiB)
+    Volume name "startrungrow"
+UDF recognition sequence, unable to locate anchor descriptor
+ISO9660 file system
+  Volume name "STARTRUNGROW"
+  Publisher   "PALO ALTO SOFTWARE"
+  Preparer    "EDC"
+  Data size 643.8 MiB (675022848 bytes, 329601 blocks of 2 KiB)
+  Joliet extension, volume name "Start, Run, Grow"
+

@@ -1,0 +1,10 @@
+
+--- .../nsrl-10607-1.img
+Regular file, size 314.1 MiB (329392128 bytes)
+ISO9660 file system
+  Volume name "UPDATE_V29"
+  Publisher   "DIGITAL EQUIPMENT CORPORATION"
+  Data size 305.2 MiB (320000000 bytes, 625000 blocks of 512 bytes)
+  Additional Primary Volume Descriptor
+  Additional Primary Volume Descriptor
+

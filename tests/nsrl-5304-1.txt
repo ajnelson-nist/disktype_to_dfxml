@@ -1,0 +1,17 @@
+
+--- .../nsrl-5304-1.img
+Regular file, size 28.46 MiB (29839360 bytes)
+Apple partition map, 2 entries
+Partition 1: 1 KiB (1024 bytes, 2 sectors from 1)
+  Type "Apple_partition_map"
+Partition 2: 5.968 MiB (6257664 bytes, 12222 sectors from 22752)
+  Type "Apple_HFS"
+  HFS file system
+    Volume name "Mac Eudora 5.1 SITE"
+    Volume size 5.965 MiB (6254592 bytes, 3054 blocks of 2 KiB)
+ISO9660 file system
+  Volume name "EUDORA51"
+  Application "TOAST ISO 9660 BUILDER COPYRIGHT (C) 1997 ADAPTEC, INC. - HAVE A NICE DAY"
+  Data size 11.11 MiB (11646976 bytes, 5687 blocks of 2 KiB)
+  Joliet extension, volume name "EUDORA51"
+

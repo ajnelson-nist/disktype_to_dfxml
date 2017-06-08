@@ -1,0 +1,17 @@
+
+--- .../nsrl-10483-1.img
+Regular file, size 578.0 MiB (606101504 bytes)
+ISO9660 file system
+  Volume name "Red Hat Linux 4.0/Intel Rev 2"
+  Publisher   "Red Hat Software, (800) 454-5502"
+  Preparer    "Red Hat Software, (800) 454-5502"
+  Application "Red Hat Linux 4.0/Intel Rev 2"
+  Data size 577.7 MiB (605759488 bytes, 295781 blocks of 2 KiB)
+  El Torito boot record, catalog at 295778
+    Bootable 1.44M floppy image, starts at 295058, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      LILO boot loader
+      Ext2 file system
+        UUID nil
+        Volume size 1.406 MiB (1474560 bytes, 1440 blocks of 1 KiB)
+

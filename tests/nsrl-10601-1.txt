@@ -1,0 +1,8 @@
+
+--- .../nsrl-10601-1.img
+Regular file, size 274.3 MiB (287571968 bytes)
+ISO9660 file system
+  Volume name ""
+  Data size 263.0 MiB (275826688 bytes, 134681 blocks of 2 KiB)
+  Descriptor type 4 at sector 17
+

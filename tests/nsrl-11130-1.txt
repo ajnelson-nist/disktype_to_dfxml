@@ -1,0 +1,12 @@
+
+--- .../nsrl-11130-1.img
+Regular file, size 625.0 MiB (655351808 bytes)
+ISO9660 file system
+  Volume name "DSA701_A00"
+  Application "NERO___BURNING_ROM"
+  Data size 625.0 MiB (655349760 bytes, 319995 blocks of 2 KiB)
+  El Torito boot record, catalog at 20
+    Bootable hard disk image, starts at 1041, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x06 (FAT16)
+  Joliet extension, volume name "DSA701_A00"
+

@@ -1,0 +1,11 @@
+
+--- .../nsrl-10515-1.img
+Regular file, size 450.3 MiB (472211456 bytes)
+ISO9660 file system
+  Volume name "Red Hat Linux/i386 5.2"
+  Application "Red Hat Linux/i386 5.2"
+  Data size 450.3 MiB (472209408 bytes, 230571 blocks of 2 KiB)
+  El Torito boot record, catalog at 230569
+    Validation entry missing
+  Joliet extension, volume name "Red Hat Linux_i3"
+

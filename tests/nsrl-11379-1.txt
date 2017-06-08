@@ -1,0 +1,8 @@
+--- .../nsrl-11379-1.img
+Regular file, size 622.2 MiB (652435456 bytes)
+ISO9660 file system
+  Volume name "Hard Hat Linux 5.2c"
+  Publisher   "Hard Data Ltd. - copyright 1999"
+  Application "Live file system for update Hard Hat distribution based on Red Hat 5.2 - April 1999"
+  Data size 620.9 MiB (651040768 bytes, 317891 blocks of 2 KiB)
+

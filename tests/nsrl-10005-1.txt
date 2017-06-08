@@ -1,0 +1,17 @@
+
+--- .../nsrl-10005-1.img
+Regular file, size 1.978 GiB (2123575296 bytes)
+UDF file system
+  Sector size 2048 bytes
+  Volume name "<5500><4400><4600><2000><5600><6F00><6C00><7500><6D00><6500>"
+  UDF version 1.02
+ISO9660 file system
+  Volume name "LB1FRE_ALL_EN_DVD"
+  Publisher   "MICROSOFT CORPORATION"
+  Preparer    "MICROSOFT CORPORATION, ONE MICROSOFT WAY, REDMOND WA 98052, (425) 882-8080"
+  Application "CDIMAGE 2.52 (03/09/2004 TM)"
+  Data size 1.978 GiB (2123573248 bytes, 1036901 blocks of 2 KiB)
+  El Torito boot record, catalog at 22
+    Bootable non-emulated image, starts at 395, preloads 2 KiB
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+

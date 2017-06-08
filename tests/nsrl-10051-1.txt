@@ -1,0 +1,13 @@
+
+--- .../nsrl-10051-1.img
+Regular file, size 3.286 GiB (3528814592 bytes)
+ISO9660 file system
+  Volume name "CDROM"
+  Application "MKISOFS ISO 9660/HFS FILESYSTEM BUILDER & CDRECORD CD-R/DVD CREATOR (C) 1993 E.YOUNGDALE (C) 1997 J.PEARSON/J.SCHILLING"
+  Data size 3.284 GiB (3525853184 bytes, 1721608 blocks of 2 KiB)
+  El Torito boot record, catalog at 131
+    Bootable non-emulated image, starts at 133, preloads 2 KiB
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      ISOLINUX boot loader
+  Joliet extension, volume name "CDROM"
+

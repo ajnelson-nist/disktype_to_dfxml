@@ -1,0 +1,16 @@
+
+--- .../nsrl-10485-1.img
+Regular file, size 543.0 MiB (569401344 bytes)
+ISO9660 file system
+  Volume name "Red Hat Linux/i386 6.0"
+  Application "Red Hat Linux/i386 6.0"
+  Data size 543.0 MiB (569399296 bytes, 278027 blocks of 2 KiB)
+  El Torito boot record, catalog at 573
+    Bootable 1.44M floppy image, starts at 254332, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      SYSLINUX boot loader
+      FAT12 file system (hints score 5 of 5)
+        Volume size 1.390 MiB (1457664 bytes, 2847 clusters of 512 bytes)
+        Volume name "LINUX BOOT"
+  Joliet extension, volume name "Red Hat Linux_i3"
+

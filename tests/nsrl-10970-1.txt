@@ -1,0 +1,23 @@
+
+--- .../nsrl-10970-1.img
+Regular file, size 3.007 GiB (3229073408 bytes)
+UDF file system
+  Sector size 2048 bytes
+  Volume name "<5500><4400><4600><2000><5600><6F00><6C00><7500><6D00><6500>"
+  UDF version 1.02
+ISO9660 file system
+  Volume name "GRMCHPXFREO_EN_DVD"
+  Publisher   "MICROSOFT CORPORATION"
+  Preparer    "MICROSOFT CORPORATION, ONE MICROSOFT WAY, REDMOND WA 98052, (425) 882-8080"
+  Application "CDIMAGE 2.54 (01/01/2005 TM)"
+  Data size 3.003 GiB (3224686592 bytes, 1574554 blocks of 2 KiB)
+  El Torito boot record, catalog at 22
+    Bootable non-emulated image, starts at 734, preloads 4 KiB
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+    Bootable non-emulated image, starts at 736, preloads 512 bytes
+      Platform 0xEF (EFI), System Type 0x00 (Empty)
+      Windows / MS-DOS boot loader
+      FAT12 file system (hints score 5 of 5)
+        Volume size 1.390 MiB (1457664 bytes, 2847 clusters of 512 bytes)
+        Volume name "EFISECTOR"
+

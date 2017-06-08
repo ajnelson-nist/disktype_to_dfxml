@@ -1,0 +1,49 @@
+
+--- .../nsrl-16618-1.img
+Regular file, size 611.2 MiB (640921600 bytes)
+Solaris SPARC disklabel
+Partition 0: 320 KiB (327680 bytes, 640 sectors from 0)
+  Type 4
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "multi_ICD_SOL_9_403_SPARC"
+    Application "MKISOFS ISO 9660/HFS FILESYSTEM BUILDER & CDRECORD CD-R/DVD CREATOR (C) 1993 E.YOUNGDALE (C) 1997 J.PEARSON/J.SCHILLING"
+    Data size 192 KiB (196608 bytes, 96 blocks of 2 KiB)
+Partition 1: 600.6 MiB (629800960 bytes, 1230080 sectors from 640)
+  Type 2
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.407"
+Partition 2: 2.500 MiB (2621440 bytes, 5120 sectors from 1230720)
+  Type 0
+  Solaris SPARC disklabel
+  Partition 1: 600.5 MiB (629673984 bytes, 1229832 sectors from 28272)
+    Type 2
+  Partition 2: 2.301 MiB (2412544 bytes, 4712 sectors from 0)
+    Type 1
+    Includes the disklabel
+    UFS file system, 8 KiB offset, big-endian
+      Last mounted at "/tmp/MntDev.407"
+  Partition 3: 2.301 MiB (2412544 bytes, 4712 sectors from 4712)
+    Type 1
+    First 204 KiB are blank
+  Partition 4: 2.301 MiB (2412544 bytes, 4712 sectors from 9424)
+    Type 1
+  Partition 5: 2.301 MiB (2412544 bytes, 4712 sectors from 14136)
+    Type 1
+  Partition 6: 2.301 MiB (2412544 bytes, 4712 sectors from 18848)
+    Type 1
+  Partition 7: 2.301 MiB (2412544 bytes, 4712 sectors from 23560)
+    Type 1
+Partition 3: 2.500 MiB (2621440 bytes, 5120 sectors from 1235840)
+  Type 0
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.407"
+Partition 4: 2.500 MiB (2621440 bytes, 5120 sectors from 1240960)
+  Type 0
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.407"
+Partition 5: 2.500 MiB (2621440 bytes, 5120 sectors from 1246080)
+  Type 0
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.407"
+

@@ -1,0 +1,9 @@
+
+--- .../nsrl-10825-1.img
+Regular file, size 611.1 MiB (640811008 bytes)
+ISO9660 file system
+  Volume name "sunsolcd"
+  Data size 0 bytes (0 blocks of 2 KiB)
+  Additional Primary Volume Descriptor
+  Joliet extension, volume name "sunsolcd"
+

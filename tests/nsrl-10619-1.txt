@@ -1,0 +1,73 @@
+
+--- .../nsrl-10619-1.img
+Regular file, size 632.4 MiB (663113728 bytes)
+Solaris SPARC disklabel
+Partition 0: 640 MiB (671088640 bytes, 1310720 sectors from 0)
+  Type 0
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "OpenBSD2.5 CD#1 www.OpenBSD.org"
+    Publisher   "Copyright (c) 1998 Theo de Raadt, The OpenBSD project"
+    Preparer    "Theo de Raadt <deraadt@openbsd.org>"
+    Application "OpenBSD 2.5 CD#1 ISBN 0-9683637-3-3 http://www.OpenBSD.org/orders.html"
+    Data size 632.1 MiB (662800384 bytes, 323633 blocks of 2 KiB)
+    El Torito boot record, catalog at 105621
+      Bootable 1.44M floppy image, starts at 114140, preloads 512 bytes
+        Platform 0x00 (x86), System Type 0x00 (Empty)
+        FAT12 file system (hints score 3 of 5)
+          Volume size 0 bytes (0 clusters of 512 bytes)
+          Volume name "UNIX LABEL"
+        UFS file system, 8 KiB offset, little-endian
+          Last mounted at "/mnt"
+Partition 1: 640 MiB (671088640 bytes, 1310720 sectors from 0)
+  Type 0
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "OpenBSD2.5 CD#1 www.OpenBSD.org"
+    Publisher   "Copyright (c) 1998 Theo de Raadt, The OpenBSD project"
+    Preparer    "Theo de Raadt <deraadt@openbsd.org>"
+    Application "OpenBSD 2.5 CD#1 ISBN 0-9683637-3-3 http://www.OpenBSD.org/orders.html"
+    Data size 632.1 MiB (662800384 bytes, 323633 blocks of 2 KiB)
+    El Torito boot record, catalog at 105621
+      Bootable 1.44M floppy image, starts at 114140, preloads 512 bytes
+        Platform 0x00 (x86), System Type 0x00 (Empty)
+        FAT12 file system (hints score 3 of 5)
+          Volume size 0 bytes (0 clusters of 512 bytes)
+          Volume name "UNIX LABEL"
+        UFS file system, 8 KiB offset, little-endian
+          Last mounted at "/mnt"
+Partition 2: 640 MiB (671088640 bytes, 1310720 sectors from 0)
+  Type 0
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "OpenBSD2.5 CD#1 www.OpenBSD.org"
+    Publisher   "Copyright (c) 1998 Theo de Raadt, The OpenBSD project"
+    Preparer    "Theo de Raadt <deraadt@openbsd.org>"
+    Application "OpenBSD 2.5 CD#1 ISBN 0-9683637-3-3 http://www.OpenBSD.org/orders.html"
+    Data size 632.1 MiB (662800384 bytes, 323633 blocks of 2 KiB)
+    El Torito boot record, catalog at 105621
+      Bootable 1.44M floppy image, starts at 114140, preloads 512 bytes
+        Platform 0x00 (x86), System Type 0x00 (Empty)
+        FAT12 file system (hints score 3 of 5)
+          Volume size 0 bytes (0 clusters of 512 bytes)
+          Volume name "UNIX LABEL"
+        UFS file system, 8 KiB offset, little-endian
+          Last mounted at "/mnt"
+Partition 3: 640 MiB (671088640 bytes, 1310720 sectors from 0)
+  Type 0
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "OpenBSD2.5 CD#1 www.OpenBSD.org"
+    Publisher   "Copyright (c) 1998 Theo de Raadt, The OpenBSD project"
+    Preparer    "Theo de Raadt <deraadt@openbsd.org>"
+    Application "OpenBSD 2.5 CD#1 ISBN 0-9683637-3-3 http://www.OpenBSD.org/orders.html"
+    Data size 632.1 MiB (662800384 bytes, 323633 blocks of 2 KiB)
+    El Torito boot record, catalog at 105621
+      Bootable 1.44M floppy image, starts at 114140, preloads 512 bytes
+        Platform 0x00 (x86), System Type 0x00 (Empty)
+        FAT12 file system (hints score 3 of 5)
+          Volume size 0 bytes (0 clusters of 512 bytes)
+          Volume name "UNIX LABEL"
+        UFS file system, 8 KiB offset, little-endian
+          Last mounted at "/mnt"
+

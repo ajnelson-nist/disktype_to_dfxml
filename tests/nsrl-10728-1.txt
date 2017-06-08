@@ -1,0 +1,5 @@
+
+--- .../nsrl-10728-1.img
+Regular file, size 4 KiB (4096 bytes)
+Blank disk/medium
+

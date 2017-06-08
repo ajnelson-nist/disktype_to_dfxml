@@ -1,0 +1,8 @@
+
+--- .../nsrl-11014-1.img
+Regular file, size 66.55 MiB (69779456 bytes)
+ISO9660 file system
+  Volume name ""
+  Data size 60.56 MiB (63504384 bytes, 31008 blocks of 2 KiB)
+  Joliet extension, volume name ""
+
