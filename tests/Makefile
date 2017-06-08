@@ -27,6 +27,7 @@ check: \
   check-2011-nps-2tb.done.log \
   check-2012-ngdc-tracy-phone-2012-07-03-initial.done.log \
   check-2014-nps-xbox360-drive2-time0.done.log \
+  check-archivematica-sampledata-BagTransfer.done.log \
   check-cfreds_2015_data_leakage_rm3.done.log
 	@echo Tests passed!
 
@@ -67,6 +68,10 @@ check-2012-ngdc-tracy-phone-2012-07-03-initial.done.log: \
 check-2014-nps-xbox360-drive2-time0.done.log: \
   2014-nps-xbox360-drive2-time0.dfxml
 	touch $@
+
+#TODO
+check-archivematica-sampledata-BagTransfer.done.log: \
+  archivematica-sampledata-BagTransfer.dfxml
 
 check-cfreds-macwd.done.log: \
   check-cfreds-macwd.py \

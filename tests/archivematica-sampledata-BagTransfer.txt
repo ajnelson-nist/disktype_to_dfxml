@@ -1,0 +1,5 @@
+
+--- .../archivematica-sampledata/SampleTransfers/BagTransfer.zip
+Regular file, size 12.88 KiB (13187 bytes)
+No type and creator code
+
