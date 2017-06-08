@@ -1,0 +1,24 @@
+
+--- .../2009-m57-patents-redacted-terry-2009-12-11-002.img
+Regular file, size 38.29 GiB (41110142976 bytes)
+DOS/MBR partition map
+Partition 1: 38.28 GiB (41107324928 bytes, 80287744 sectors from 2048, bootable)                                                                              
+  Type 0x07 (HPFS/NTFS)
+  NTFS file system
+    Volume size 38.28 GiB (41107324416 bytes, 80287743 sectors)                                                                                               
+GPT partition map, 128 entries
+  Disk size 38.29 GiB (41110142976 bytes, 80293248 sectors)                                                                                                   
+  Disk GUID A8D2DBA1-0297-884D-A8AB-DB75C328362E
+Partition 1: 200 MiB (209715200 bytes, 409600 sectors from 40)                                                                                                
+  Type EFI System (FAT) (GUID 28732AC1-1FF8-D211-BA4B-00A0C93EC93B)
+  Partition Name "EFI System Partition"
+  Partition GUID 41509727-005F-9D44-996D-DE8659D6C87F
+  FAT32 file system (hints score 5 of 5)                                                                                                                      
+    Volume size 196.9 MiB (206472192 bytes, 403266 clusters of 512 bytes)
+    Volume name "EFI"
+Partition 2: 38.09 GiB (40898658304 bytes, 79880192 sectors from 411648)
+  Type Basic Data (GUID A2A0D0EB-E5B9-3344-87C0-68B6B72699C7)
+  Partition Name "UNTITLED"
+  Partition GUID 3B0A3780-4AFA-D544-8689-D2154CF3792D
+Partition 3: unused
+

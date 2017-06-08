@@ -1,0 +1,7 @@
+
+--- .../2012-ngdc-tracy-phone-2012-07-03-initial.img
+Regular file, size 7.563 GiB (8120172544 bytes)
+DOS/MBR partition map
+Partition 1: 968.0 MiB (1015021056 bytes, 1982463 sectors from 1)
+  Type 0xEE (EFI GPT protective)
+

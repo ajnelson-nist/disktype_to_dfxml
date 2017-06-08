@@ -1,0 +1,10 @@
+
+--- .../2009-nps-ubnist1-gen0.img
+Regular file, size 1.962 GiB (2106589184 bytes)
+DOS/MBR partition map
+Partition 1: 1.962 GiB (2106542592 bytes, 4114341 sectors from 63, bootable)
+  Type 0x0B (Win95 FAT32)
+  FAT32 file system (hints score 5 of 5)
+    Volume size 1.958 GiB (2102415360 bytes, 513285 clusters of 4 KiB)
+    Volume name ""
+

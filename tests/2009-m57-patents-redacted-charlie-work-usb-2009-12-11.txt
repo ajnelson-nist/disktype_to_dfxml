@@ -1,0 +1,8 @@
+--- .../2009-m57-patents-redacted-charlie-work-usb-2009-12-11.img
+Regular file, size 1010 MiB (1059061760 bytes)
+DOS/MBR partition map
+Partition 1: 0.986 GiB (1059061248 bytes, 2068479 sectors from 1)
+  Type 0x07 (HPFS/NTFS)
+  NTFS file system
+    Volume size 0.986 GiB (1059060736 bytes, 2068478 sectors)
+

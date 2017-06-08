@@ -1,0 +1,9 @@
+--- .../2009-m57-patents-redacted-jo-favorites-usb-2009-12-11.img
+Regular file, size 1000 MiB (1048576000 bytes)
+DOS/MBR partition map
+Partition 1: 999.9 MiB (1048513536 bytes, 2047878 sectors from 63)
+  Type 0x0B (Win95 FAT32)
+  FAT32 file system (hints score 5 of 5)
+    Volume size 998.0 MiB (1046450176 bytes, 255481 clusters of 4 KiB)
+    Volume name "JO FAVORITE"
+

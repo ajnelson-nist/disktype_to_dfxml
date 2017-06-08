@@ -1,0 +1,6 @@
+--- .../2011-nps-2tb.img
+Regular file, size 1.819 TiB (2000054960128 bytes)
+HFS Plus file system
+  Volume size 1.819 TiB (2000054960128 bytes, 488294668 blocks of 4 KiB)
+  Volume name "2011-NPS-2TB"
+
