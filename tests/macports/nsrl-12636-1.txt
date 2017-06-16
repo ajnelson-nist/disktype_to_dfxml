@@ -1,0 +1,10 @@
+
+--- .../nsrl-12636-1.img
+Regular file, size 541.0 MiB (567291904 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "LOTUS_SSR9"
+  Application "CD7BONA
+"
+  Data size 534.0 MiB (559894528 bytes, 273386 blocks of 2 KiB)
+

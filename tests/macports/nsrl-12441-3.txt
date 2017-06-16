@@ -1,0 +1,53 @@
+
+--- .../nsrl-12441-3.img
+Regular file, size 515.7 MiB (540729344 bytes)
+No type and creator code
+Solaris SPARC disklabel
+Partition 0: 320 KiB (327680 bytes, 640 sectors from 0)
+  Type 4
+  Includes the disklabel
+  ISO9660 file system
+    Volume name "multi_ICD_SOL_8_SPARC_cs"
+    Data size 168 KiB (172032 bytes, 84 blocks of 2 KiB)
+    Additional Primary Volume Descriptor
+Partition 1: 500.3 MiB (524615680 bytes, 1024640 sectors from 640)
+  Type 2
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.7547"
+Partition 2: 1.563 MiB (1638400 bytes, 3200 sectors from 1025280)
+  Type 0
+  Solaris SPARC disklabel
+  Partition 1: 500.1 MiB (524353536 bytes, 1024128 sectors from 18144)
+    Type 2
+    Blank disk/medium
+  Partition 2: 1.477 MiB (1548288 bytes, 3024 sectors from 0)
+    Type 1
+    Includes the disklabel
+    UFS file system, 8 KiB offset, big-endian
+      Last mounted at "/tmp/MntDev.7547"
+  Partition 3: 1.477 MiB (1548288 bytes, 3024 sectors from 3024)
+    Type 1
+    First 88 KiB are blank
+  Partition 4: 1.477 MiB (1548288 bytes, 3024 sectors from 6048)
+    Type 1
+  Partition 5: 1.477 MiB (1548288 bytes, 3024 sectors from 9072)
+    Type 1
+  Partition 6: 1.477 MiB (1548288 bytes, 3024 sectors from 12096)
+    Type 1
+  Partition 7: 1.477 MiB (1548288 bytes, 3024 sectors from 15120)
+    Type 1
+    Blank disk/medium
+Partition 3: 1.563 MiB (1638400 bytes, 3200 sectors from 1028480)
+  Type 0
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.7547"
+  compress-compressed data
+Partition 4: 1.563 MiB (1638400 bytes, 3200 sectors from 1031680)
+  Type 0
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.7547"
+Partition 5: 1.563 MiB (1638400 bytes, 3200 sectors from 1034880)
+  Type 0
+  UFS file system, 8 KiB offset, big-endian
+    Last mounted at "/tmp/MntDev.7547"
+

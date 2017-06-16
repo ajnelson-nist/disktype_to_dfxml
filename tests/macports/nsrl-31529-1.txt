@@ -1,0 +1,9 @@
+
+--- .../nsrl-31529-1.img
+Regular file, size 442.9 MiB (464453632 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "RESOURCE_CD"
+  Data size 444.4 MiB (466006016 bytes, 227542 blocks of 2 KiB)
+  El Torito boot record, catalog at 226829
+

@@ -1,0 +1,16 @@
+
+--- .../nsrl-14480-1.img
+Regular file, size 363.5 MiB (381198336 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "KIS 2012"
+  Application "GENISOIMAGE ISO 9660/HFS FILESYSTEM CREATOR (C) 1993 E.YOUNGDALE (C) 1997-2006 J.PEARSON/J.SCHILLING (C) 2006-2007 CDRKIT TEAM"
+  Data size 363.2 MiB (380887040 bytes, 185980 blocks of 2 KiB)
+  El Torito boot record, catalog at 20
+    Bootable non-emulated image, starts at 260, preloads 2 KiB
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      FAT32 file system (hints score 0 of 5)
+        Unusual sector size 1024 bytes
+        Volume size off the scale (18446744065668957184 bytes, 18446744073701699473 clusters of 1 KiB)
+  Joliet extension, volume name "KIS 2012"
+

@@ -16,4 +16,4 @@ To run unit tests, run `make check`.
 
 ## Prerequisites
 
-`disktype_to_dfxml.py` makes use of Python 3 features.  It has been tested on the `disktype` version as supplied in Ubuntu 16.04.
+`disktype_to_dfxml.py` makes use of Python 3 features.  It has been tested on the `disktype` version as supplied in Ubuntu 16.04, and as supplied by MacPorts.

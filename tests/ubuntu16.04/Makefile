@@ -25,6 +25,7 @@ all:
 	mv _$@ $@
 
 check: \
+  check-2009-m57-patents-redacted-charlie-2009-11-12.done.log \
   check-2009-m57-patents-redacted-charlie-work-usb-2009-12-11.done.log \
   check-2009-m57-patents-redacted-jo-favorites-usb-2009-12-11.done.log \
   check-2009-m57-patents-redacted-terry-2009-12-11-002.done.log \
@@ -65,11 +66,18 @@ check: \
   check-nsrl-11130-1.done.log \
   check-nsrl-11315-1.done.log \
   check-nsrl-11379-1.done.log \
+  check-nsrl-12579-1.done.log \
+  check-nsrl-1267-4.done.log \
   check-nsrl-16618-1.done.log \
   check-nsrl-31595-1.done.log \
   check-nsrl-5304-1.done.log \
+  check-nsrl-9297-1.done.log \
   check-nsrl-9992-1.done.log
 	@echo Ubuntu 16.04 tests passed!
+
+#TODO
+check-2009-m57-patents-redacted-charlie-2009-11-12.done.log: \
+  2009-m57-patents-redacted-charlie-2009-11-12.dfxml
 
 # The pstype_str egrep line looks for pstype_str attached to the root element only.
 check-2009-m57-patents-redacted-charlie-work-usb-2009-12-11.done.log: \
@@ -243,6 +251,14 @@ check-nsrl-11379-1.done.log: \
   nsrl-11379-1.dfxml
 	test 1 -eq $$(grep ftype_str $< | wc -l)
 
+#TODO
+check-nsrl-12579-1.done.log: \
+  nsrl-12579-1.dfxml
+
+#TODO
+check-nsrl-1267-4.done.log: \
+  nsrl-1267-4.dfxml
+
 check-nsrl-16618-1.done.log: \
   nsrl-16618-1.dfxml \
   check-nsrl-16618-1.py
@@ -260,6 +276,10 @@ check-nsrl-5304-1.done.log: \
 	test 2 -eq $$(grep ftype_str $< | wc -l)
 	test 1 -eq $$(grep ftype_str $< | grep '>HFS<' | wc -l)
 	test 1 -eq $$(grep ftype_str $< | grep ISO9660 | wc -l)
+
+#TODO
+check-nsrl-9297-1.done.log: \
+  nsrl-9297-1.dfxml
 
 check-nsrl-9992-1.done.log: \
   nsrl-9992-1.dfxml

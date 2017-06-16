@@ -1,0 +1,32 @@
+
+--- .../nsrl-2332-1.img
+Regular file, size 552.1 MiB (578949120 bytes)
+No type and creator code
+DOS/MBR partition map
+Partition 1: 636.0 MiB (666893824 bytes, 1302527 sectors from 1, bootable)
+  Type 0x82 (Linux swap / Solaris)
+  Solaris x86 disklabel, version 1, 16 partitions
+    Volume name "OEM Rel"
+  Partition 0: 48.83 MiB (51200000 bytes, 100000 sectors from 1023999)
+    Type 2 (Root)
+    UFS file system, 8 KiB offset, little-endian
+      Last mounted at "/mnt"
+  Partition 1: 247.6 MiB (259653632 bytes, 507136 sectors from 63)
+    Type 4 (Usr)
+  Partition 2: 636.0 MiB (666893824 bytes, 1302527 sectors from 0)
+    Type 5 (Overlap)
+    Includes the disklabel
+  Partition 4: 48.83 MiB (51200000 bytes, 100000 sectors from 507199)
+    Type 4 (Usr)
+    Blank disk/medium
+  Partition 15: 31.50 KiB (32256 bytes, 63 sectors from 0)
+    Type 1 (Boot)
+    Includes the disklabel
+ISO9660 file system
+  Volume name "DISC_IMAGE_NUMBER_FCS"
+  Publisher   "USER OF YOUNG MINDS CD-ROM PUBLISHING SOFTWARE"
+  Preparer    "YOUNG MINDS CD-ROM PUBLISHING SOFTWARE, YOUNG MINDS, INC., 308 W. STATE ST., SUITE 2B, REDLANDS, CA, 92373, (714) 335-1350"
+  Application "NOT SPECIFIED"
+  Data size 246.0 MiB (257972224 bytes, 125963 blocks of 2 KiB)
+  Additional Primary Volume Descriptor
+

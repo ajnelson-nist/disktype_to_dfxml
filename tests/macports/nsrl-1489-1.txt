@@ -1,0 +1,10 @@
+
+--- .../nsrl-1489-1.img
+Regular file, size 44.10 MiB (46243840 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "PCC2002"
+  Data size 43.81 MiB (45934592 bytes, 22429 blocks of 2 KiB)
+  Boot record of unknown format
+  Joliet extension, volume name "PCC2002"
+

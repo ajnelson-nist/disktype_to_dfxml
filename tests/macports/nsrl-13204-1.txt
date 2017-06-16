@@ -1,0 +1,37 @@
+
+--- .../nsrl-13204-1.img
+Regular file, size 512.7 MiB (537628672 bytes)
+No type and creator code
+DOS/MBR partition map
+Partition 1: 503.3 MiB (527748608 bytes, 1030759 sectors from 1, bootable)
+  Type 0x82 (Linux swap / Solaris)
+  Solaris x86 disklabel, version 1, 16 partitions
+  Partition 0: 49.86 MiB (52285440 bytes, 102120 sectors from 928639)
+    Type 2 (Root)
+    Solaris x86 disklabel, version 1, 16 partitions
+    Partition 0: 49.86 MiB (52285440 bytes, 102120 sectors from 0)
+      Type 2 (Root)
+      Includes the disklabel
+      UFS file system, 8 KiB offset, little-endian
+        Last mounted at "/tmp/MntDev.16944"
+    Partition 2: 0.980 GiB (1052528640 bytes, 2055720 sectors from 0)
+      Type 5 (Overlap)
+      Includes the disklabel
+      UFS file system, 8 KiB offset, little-endian
+        Last mounted at "/tmp/MntDev.16944"
+    Partition 8: 555 KiB (568320 bytes, 1110 sectors from 0)
+      Type 1 (Boot)
+      Includes the disklabel
+      UFS file system, 8 KiB offset, little-endian
+        Last mounted at "/tmp/MntDev.16944"
+  Partition 1: 453.4 MiB (475463168 bytes, 928639 sectors from 0)
+    Type 4 (Usr)
+    Includes the disklabel
+  Partition 2: 503.3 MiB (527749120 bytes, 1030760 sectors from 0)
+    Type 0 (Unused)
+    Includes the disklabel
+ISO9660 file system
+  Volume name "SOL_2_6_598_X86"
+  Data size 453.2 MiB (475262976 bytes, 232062 blocks of 2 KiB)
+  Additional Primary Volume Descriptor
+

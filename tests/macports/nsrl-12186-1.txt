@@ -1,0 +1,17 @@
+
+--- .../nsrl-12186-1.img
+Regular file, size 95.20 MiB (99823616 bytes)
+No type and creator code
+Apple partition map, 6 entries
+Partition 1: 80 MiB (83886080 bytes, 163840 sectors from 1668)
+  Type "Apple_HFS"
+  HFS file system
+    Volume name "Hard Disk ToolKit<AA>"
+    Volume size 79.96 MiB (83849216 bytes, 7444 blocks of 11 KiB)
+Partition 2: invalid signature, skipping
+Partition 3: invalid signature, skipping
+Partition 4: 50 KiB (51200 bytes, 100 sectors from 1)
+  Type "Apple_partition_map"
+Partition 5: invalid signature, skipping
+Partition 6: invalid signature, skipping
+

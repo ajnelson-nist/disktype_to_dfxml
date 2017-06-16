@@ -22,12 +22,19 @@ all:
 	exit 72
 
 .PHONY: \
+  check-macports \
   check-ubuntu16.04 \
+  clean-macports \
   clean-ubuntu16.04
 
 check: \
+  check-macports \
   check-ubuntu16.04
 	@echo Tests passed!
+
+check-macports: \
+  check-rx_partition_fs_type_code_and_label.done.log
+	$(MAKE) -C macports check
 
 # The pstype_str egrep line looks for pstype_str attached to the root element only.
 check-rx_partition_fs_type_code_and_label.done.log: \
@@ -42,8 +49,12 @@ check-ubuntu16.04: \
 	$(MAKE) -C ubuntu16.04 check
 
 clean: \
+  clean-macports \
   clean-ubuntu16.04
 	@rm -f *.done.log
+
+clean-macports:
+	@$(MAKE) -C macports clean
 
 clean-ubuntu16.04:
 	@$(MAKE) -C ubuntu16.04 clean

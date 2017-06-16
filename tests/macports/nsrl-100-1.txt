@@ -1,0 +1,18 @@
+
+--- .../nsrl-100-1.img
+Regular file, size 501.6 MiB (525930496 bytes)
+No type and creator code
+Apple partition map, 2 entries
+Partition 1: 1 KiB (1024 bytes, 2 sectors from 1)
+  Type "Apple_partition_map"
+Partition 2: 161.9 MiB (169730048 bytes, 331504 sectors from 695090)
+  Type "Apple_HFS"
+  HFS file system
+    Volume name "NOTES_R5_GLOBAL"
+    Volume size 161.9 MiB (169721856 bytes, 41436 blocks of 4 KiB)
+ISO9660 file system
+  Volume name "NOTES_R5_GLOBAL"
+  Application "TOAST ISO 9660 BUILDER COPYRIGHT (C) 1997 ADAPTEC, INC. - HAVE A NICE DAY"
+  Data size 339.4 MiB (355885056 bytes, 173772 blocks of 2 KiB)
+  Joliet extension, volume name "NOTES_R5_GLOBAL"
+

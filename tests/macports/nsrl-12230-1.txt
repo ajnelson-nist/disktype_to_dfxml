@@ -1,0 +1,13 @@
+
+--- .../nsrl-12230-1.img
+Regular file, size 24.34 MiB (25522176 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "VOLUME_NAME"
+  Publisher   "THE PUBLISHER NAME"
+  Preparer    "YOUR COMPANY"
+  Application "APPLICATION_NAMES"
+  Data size 17.99 MiB (18866176 bytes, 9212 blocks of 2 KiB)
+  Additional Primary Volume Descriptor
+Pre-POSIX tar archive
+

@@ -1,0 +1,18 @@
+
+--- .../nsrl-7476-1.img
+Regular file, size 587.9 MiB (616427520 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "FSD_2_2_1A"
+  Publisher   "Walnut Creek CDROM        1-510-674-0783  FAX 1-510-674-0821"
+  Data size 587.6 MiB (616114176 bytes, 300837 blocks of 2 KiB)
+  El Torito boot record, catalog at 1826
+    Bootable 1.44M floppy image, starts at 1827, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      FreeBSD boot loader (i386 boot1 at sector 0)
+      BSD disklabel (at sector 1), 3 partitions
+      Partition c: 1.406 MiB (1474560 bytes, 2880 sectors from 0)
+        Type 0 (Unused)
+      UFS file system, 8 KiB offset, little-endian
+        Last mounted at "/mnt"
+

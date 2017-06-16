@@ -1,0 +1,18 @@
+
+--- .../nsrl-119647-1.img
+Regular file, size 700.9 MiB (734973952 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "SU90SP3.P01"
+  Publisher   "Novell, Inc."
+  Preparer    "CD-Team, http://www.suse.de/feedback"
+  Application "Service-Pack_SUSE-CORE_9-3_(ia64)"
+  Data size 700.9 MiB (734969856 bytes, 358872 blocks of 2 KiB)
+  El Torito boot record, catalog at 402
+    Bootable non-emulated image, starts at 403, preloads 13.29 MiB (13934592 bytes)
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      FAT16 file system (hints score 5 of 5)
+        Volume size 13.24 MiB (13878272 bytes, 13553 clusters of 1 KiB)
+        Volume name "BOOTCD1"
+  Joliet extension, volume name "SU90SP3.P01"
+

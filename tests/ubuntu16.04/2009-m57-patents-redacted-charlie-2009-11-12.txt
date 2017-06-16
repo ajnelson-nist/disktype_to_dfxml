@@ -1,0 +1,10 @@
+
+--- .../2009-m57-patents-redacted-charlie-2009-11-12.img
+Regular file, size 9.537 GiB (10239860736 bytes)
+DOS/MBR partition map
+Partition 1: 9.522 GiB (10223990784 bytes, 19968732 sectors from 63, bootable)
+  Type 0x07 (HPFS/NTFS)
+  Windows NTLDR boot loader
+  NTFS file system
+    Volume size 9.522 GiB (10223990272 bytes, 19968731 sectors)
+

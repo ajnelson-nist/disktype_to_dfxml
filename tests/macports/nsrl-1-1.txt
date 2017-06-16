@@ -1,0 +1,8 @@
+
+--- .../nsrl-1-1.img
+Regular file, size 13.28 MiB (13922304 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "NUNT"
+  Data size 12.98 MiB (13613056 bytes, 6647 blocks of 2 KiB)
+

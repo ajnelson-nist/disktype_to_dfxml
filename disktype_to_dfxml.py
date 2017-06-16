@@ -11,7 +11,7 @@
 #
 # We would appreciate acknowledgement if the software is used.
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 import subprocess
 import re
@@ -70,6 +70,7 @@ class PartitionSystemObject(object):
         self.guid = None
         self.partitions = []
         self.pstype_str = None
+        self.volume_name = None #TODO This might only appear on Solaris disklabels that are directly nested in a partition.
 
     def __str__(self):
         parts = []
@@ -78,7 +79,8 @@ class PartitionSystemObject(object):
           "byte_runs",
           "guid",
           "partitions",
-          "pstype_str"
+          "pstype_str",
+          "volume_name"
         ]:
             val = getattr(self, prop)
             if val:
@@ -136,10 +138,11 @@ class ParseState(enum.Enum):
     _INPUT_END                             = 999
 
     #Misc. and multi-category states
-    BLANK_MEDIUM                           =   1
-    SECTOR_SIZE                            =   2
-    SOLARIS_SPARC_DISKLABEL                =   3
-    TAR_ARCHIVE                            =   4
+    BLANK_CHECK                            =   1
+    BLANK_MEDIUM                           =   2
+    SECTOR_SIZE                            =   3
+    SOLARIS_DISKLABEL                      =   4
+    TAR_ARCHIVE                            =   5
 
     _DISK_START                            = 100
     CPIO_ARCHIVE                           = 101
@@ -159,19 +162,18 @@ class ParseState(enum.Enum):
     BOOTABLE_FLOPPY_IMAGE                  = 301
     BOOTABLE_HARD_DISK_IMAGE               = 302
     BOOTABLE_NONEMULATED_IMAGE             = 303
-    FILE_SYSTEM_INCLUDES                   = 304
-    PARTITION_BLANK_CHECK                  = 305
-    PARTITION_GUID                         = 306
-    PARTITION_INCLUDES                     = 307
-    PARTITION_META                         = 308
-    PARTITION_NAME                         = 309
-    PARTITION_PTYPE_INT                    = 310
-    PARTITION_PTYPE_STR                    = 311
-    PARTITION_PTYPE_AND_PTYPE_STR          = 312
-    PARTITION_PTYPE_STR_AND_GUID           = 313
-    PARTITION_PTYPE_STR_FTYPE_STR_AND_GUID = 314
-    PARTITION_UNUSED                       = 315
-    SIGNATURE_MISSING                      = 316
+    PARTITION_GUID                         = 304
+    PARTITION_INCLUDES                     = 305
+    PARTITION_INVALID_SIGNATURE            = 306
+    PARTITION_META                         = 307
+    PARTITION_NAME                         = 308
+    PARTITION_PTYPE_INT                    = 309
+    PARTITION_PTYPE_STR                    = 310
+    PARTITION_PTYPE_AND_PTYPE_STR          = 311
+    PARTITION_PTYPE_STR_AND_GUID           = 312
+    PARTITION_PTYPE_STR_FTYPE_STR_AND_GUID = 313
+    PARTITION_UNUSED                       = 314
+    SIGNATURE_MISSING                      = 315
     _PARTITION_END                         = 399
 
     _FILE_SYSTEM_START                     = 400
@@ -189,11 +191,12 @@ class ParseState(enum.Enum):
     LAST_MOUNTED                           = 412
     PLATFORM_SYSTEM_TYPE                   = 413
     PREPARER                               = 414
-    PUBLISHER                              = 415
-    UDF_RECOGNITION_SEQUENCE_MISSINGLOC    = 416
-    UDF_VERSION                            = 417
-    VOLUME_NAME                            = 418
-    VOLUME_SIZE                            = 419
+    PRIMARY_VOLUME_DESCRIPTOR_MISSING      = 415
+    PUBLISHER                              = 416
+    UDF_RECOGNITION_SEQUENCE_MISSINGLOC    = 417
+    UDF_VERSION                            = 418
+    VOLUME_NAME                            = 419
+    VOLUME_SIZE                            = 420
     _FILE_SYSTEM_END                       = 499
 
     #El Torito state tracking is to ease indentation-based interpretations.
@@ -201,15 +204,19 @@ class ParseState(enum.Enum):
     _EL_TORITO_END                         = 599
 
     _COMPRESSION_START                     = 600
-    GZIP                                   = 601
+    BAR_ARCHIVE                            = 601
+    COMPRESS                               = 602
+    GZIP                                   = 603
     _COMPRESSION_END                       = 699
 
 state_transitions = {
   ParseState._COMPRESSION_END: {
     ParseState._DISK_END,
+    ParseState._PARTITION_END,
   },
   ParseState._COMPRESSION_START: {
-    ParseState.GZIP,
+    ParseState.COMPRESS,
+    ParseState.GZIP
   },
   ParseState._DISK_END: {
     ParseState._DISK_START,
@@ -231,12 +238,15 @@ state_transitions = {
     ParseState.BOOT_RECORD,
   },
   ParseState._FILE_SYSTEM_END: {
+    ParseState._COMPRESSION_END,
+    ParseState._COMPRESSION_START,
     ParseState._DISK_END,
+    ParseState._FILE_SYSTEM_END,
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_END,
     ParseState._PARTITION_SYSTEM_START,
-    ParseState.HFS_WRAPPER,
-    ParseState.ISO9660_EXTENSION
+    ParseState.ISO9660_EXTENSION,
+    ParseState.TAR_ARCHIVE
   },
   ParseState._FILE_SYSTEM_START: {
     ParseState.FS_TYPE_STR
@@ -250,6 +260,7 @@ state_transitions = {
     ParseState._PARTITION_SYSTEM_END
   },
   ParseState._PARTITION_START: {
+    ParseState.PARTITION_INVALID_SIGNATURE,
     ParseState.PARTITION_META,
     ParseState.PARTITION_UNUSED
   },
@@ -264,7 +275,7 @@ state_transitions = {
   ParseState._PARTITION_SYSTEM_START: {
     ParseState.BSD_DISKLABEL,
     ParseState.PARTITION_MAP,
-    ParseState.SOLARIS_SPARC_DISKLABEL
+    ParseState.SOLARIS_DISKLABEL
   },
   ParseState.ADDITIONAL_PRIMARY_VOLUME_DESCRIPTOR: {
     ParseState._FILE_SYSTEM_END,
@@ -273,6 +284,14 @@ state_transitions = {
   },
   ParseState.APPLICATION: {
     ParseState.DATA_SIZE
+  },
+  ParseState.BAR_ARCHIVE: {
+    ParseState._COMPRESSION_START,
+    ParseState._DISK_END,
+  },
+  ParseState.BLANK_CHECK: {
+    ParseState._DISK_END,
+    ParseState._PARTITION_END
   },
   ParseState.BLANK_MEDIUM: {
     ParseState._DISK_END,
@@ -287,8 +306,10 @@ state_transitions = {
   },
   ParseState.BOOT_RECORD: {
     ParseState._DISK_START,
+    ParseState._EL_TORITO_END,
     ParseState.BOOTABLE_HARD_DISK_IMAGE,
     ParseState.BOOTABLE_NONEMULATED_IMAGE,
+    ParseState.ISO9660_EXTENSION,
     ParseState.VALIDATION_ENTRY_MISSING
   },
   ParseState.BOOTABLE_FLOPPY_IMAGE: {
@@ -303,6 +324,9 @@ state_transitions = {
   ParseState.BSD_DISKLABEL: {
     ParseState._PARTITION_START
   },
+  ParseState.COMPRESS: {
+    ParseState._COMPRESSION_END
+  },
   ParseState.CPIO_ARCHIVE: {
     ParseState._DISK_END
   },
@@ -310,8 +334,10 @@ state_transitions = {
     ParseState._EL_TORITO_START,
     ParseState._FILE_SYSTEM_END,
     ParseState.ADDITIONAL_PRIMARY_VOLUME_DESCRIPTOR,
+    ParseState.BOOT_RECORD,
     ParseState.DESCRIPTOR_TYPE,
-    ParseState.ISO9660_EXTENSION
+    ParseState.ISO9660_EXTENSION,
+    ParseState.SIGNATURE_MISSING
   },
   ParseState.DESCRIPTOR_TYPE: {
     ParseState._FILE_SYSTEM_END
@@ -321,8 +347,11 @@ state_transitions = {
   },
   ParseState.DISK_META: {
     ParseState._DISK_END,
+    ParseState._COMPRESSION_START,
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_SYSTEM_START,
+    ParseState.BAR_ARCHIVE,
+    ParseState.BLANK_CHECK,
     ParseState.BLANK_MEDIUM,
     ParseState.BOOT_LOADER,
     ParseState.CPIO_ARCHIVE,
@@ -335,9 +364,6 @@ state_transitions = {
   ParseState.FILE_SYSTEM_UUID: {
     ParseState.VOLUME_SIZE
   },
-  ParseState.FILE_SYSTEM_INCLUDES: {
-    ParseState._FILE_SYSTEM_START
-  },
   ParseState.FS_TYPE_STR: {
     ParseState._FILE_SYSTEM_END,
     ParseState.FILE_SYSTEM_UUID,
@@ -347,6 +373,8 @@ state_transitions = {
     ParseState.VOLUME_SIZE
   },
   ParseState.GZIP: {
+    ParseState._COMPRESSION_END,
+    ParseState._FILE_SYSTEM_START,
     ParseState.TAR_ARCHIVE
   },
   ParseState.INPUT_FILE: {
@@ -367,17 +395,27 @@ state_transitions = {
     ParseState.VOLUME_NAME
   },
   ParseState.NO_TYPE_AND_CREATOR_CODE: {
-    ParseState._DISK_END
-  },
-  ParseState.PARTITION_BLANK_CHECK: {
-    ParseState._PARTITION_END
+    ParseState._COMPRESSION_START,
+    ParseState._DISK_END,
+    ParseState._FILE_SYSTEM_START,
+    ParseState._PARTITION_SYSTEM_START,
+    ParseState.BAR_ARCHIVE,
+    ParseState.BLANK_CHECK,
+    ParseState.BLANK_MEDIUM,
+    ParseState.BOOT_LOADER,
+    ParseState.CPIO_ARCHIVE,
+    ParseState.TAR_ARCHIVE
   },
   ParseState.PARTITION_GUID: {
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_END
   },
   ParseState.PARTITION_INCLUDES: {
-    ParseState._FILE_SYSTEM_START
+    ParseState._FILE_SYSTEM_START,
+    ParseState._PARTITION_END
+  },
+  ParseState.PARTITION_INVALID_SIGNATURE: {
+    ParseState._PARTITION_END
   },
   ParseState.PARTITION_MAP: {
     ParseState._PARTITION_START,
@@ -407,15 +445,18 @@ state_transitions = {
   ParseState.PARTITION_PTYPE_AND_PTYPE_STR: {
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_END,
-    ParseState.FILE_SYSTEM_INCLUDES,
+    ParseState._PARTITION_SYSTEM_START,
+    ParseState.BLANK_MEDIUM,
+    ParseState.BOOT_LOADER,
+    ParseState.PARTITION_INCLUDES,
     ParseState.SIGNATURE_MISSING
   },
   ParseState.PARTITION_PTYPE_INT: {
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_END,
     ParseState._PARTITION_SYSTEM_START,
+    ParseState.BLANK_CHECK,
     ParseState.BLANK_MEDIUM,
-    ParseState.PARTITION_BLANK_CHECK,
     ParseState.PARTITION_INCLUDES,
     ParseState.PARTITION_META
   },
@@ -423,8 +464,8 @@ state_transitions = {
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_END,
     ParseState._PARTITION_SYSTEM_START,
+    ParseState.BLANK_CHECK,
     ParseState.BLANK_MEDIUM,
-    ParseState.PARTITION_BLANK_CHECK,
     ParseState.PARTITION_META
   },
   ParseState.PARTITION_PTYPE_STR_AND_GUID: {
@@ -437,19 +478,26 @@ state_transitions = {
     ParseState.APPLICATION,
     ParseState.DATA_SIZE
   },
+  ParseState.PRIMARY_VOLUME_DESCRIPTOR_MISSING: {
+    ParseState._FILE_SYSTEM_END
+  },
   ParseState.PUBLISHER: {
     ParseState.APPLICATION,
     ParseState.DATA_SIZE,
     ParseState.PREPARER
   },
   ParseState.SECTOR_SIZE: {
-    ParseState.VOLUME_NAME
+    ParseState.PRIMARY_VOLUME_DESCRIPTOR_MISSING,
+    ParseState.VOLUME_NAME,
+    ParseState.VOLUME_SIZE
   },
   ParseState.SIGNATURE_MISSING: {
+    ParseState._FILE_SYSTEM_END,
     ParseState._PARTITION_END
   },
-  ParseState.SOLARIS_SPARC_DISKLABEL: {
-    ParseState._PARTITION_START
+  ParseState.SOLARIS_DISKLABEL: {
+    ParseState._PARTITION_START,
+    ParseState.VOLUME_NAME
   },
   ParseState.TAR_ARCHIVE: {
     ParseState._COMPRESSION_END,
@@ -468,6 +516,7 @@ state_transitions = {
   },
   ParseState.VOLUME_NAME: {
     ParseState._FILE_SYSTEM_END,
+    ParseState._PARTITION_START,
     ParseState.APPLICATION,
     ParseState.DATA_SIZE,
     ParseState.PARTITION_META,
@@ -480,21 +529,28 @@ state_transitions = {
     ParseState._FILE_SYSTEM_END,
     ParseState._FILE_SYSTEM_START,
     ParseState._PARTITION_SYSTEM_START,
+    ParseState.HFS_WRAPPER,
     ParseState.PARTITION_META,
     ParseState.VOLUME_NAME
   }
 }
 
 #These regexen are for byte strings because some free-form text (like generating application) includes non-ASCII characters (e.g. a copyright symbol).
+#Use of re.DOTALL is for patterns that have free-form text, which have been observed to include embedded newline characters.
 rx_additional_primary_volume_descriptor   = re.compile(br"^Additional Primary Volume Descriptor$")
-rx_application                            = re.compile(br"^Application +\"(?P<application>.+)\"$")
+rx_application                            = re.compile(br"^Application +\"(?P<application>.+)\"$", re.DOTALL)
+rx_bar_archive                            = re.compile(br"^bar archive$")
+rx_blank_check                            = re.compile(br"^First (?P<range>.+) are blank$")
 rx_blank_medium                           = re.compile(br"^Blank disk/medium$")
-rx_boot_loader                            = re.compile(br"^(?P<boot_loader_type>(FreeBSD|ISOLINUX|LILO|SYSLINUX|Windows / MS-DOS|Windows 95/98/ME|Windows NTLDR)) boot loader.*$")
+rx_boot_loader                            = re.compile(br"^(?P<boot_loader_type>(BeOS|FreeBSD|GRUB|ISOLINUX|LILO|SYSLINUX|Windows / MS-DOS|Windows 95/98/ME|Windows NTLDR)) boot loader.*$")
 rx_boot_record                            = re.compile(br"^(?P<boot_record_type>.+) boot record, catalog at (?P<offset_in_sectors>\d+)$")
+rx_boot_record_unknown_format             = re.compile(br"^Boot record of unknown format$")
 rx_bootable_floppy_image                  = re.compile(br"^Bootable (?P<floppy_size>.+) floppy image, starts at (?P<boot_offset_in_sectors>\d+), preloads (?P<preload_byte_count>\d+) bytes$")
 rx_bootable_hard_disk_image               = re.compile(br"^Bootable hard disk image, starts at (?P<boot_offset_in_sectors>\d+), preloads (?P<preload_byte_count>\d+) bytes$")
 rx_bootable_nonemulated_image             = re.compile(br"^Bootable non-emulated image, starts at (?P<boot_offset_in_sectors>\d+), preloads (?P<preload_count_unitless>\d+) (?P<preload_count_unit>.+)$")
-rx_bsd_disklabel                          = re.compile(br"^BSD disklabel \(at sector (?P<sector>)\d+\), \d+ partitions$")
+rx_bootable_nonemulated_image_summary     = re.compile(br"^Bootable non-emulated image, starts at (?P<boot_offset_in_sectors>\d+), preloads .+ \((?P<preload_count_unitless>\d+) (?P<preload_count_unit>.+)\)$")
+rx_bsd_disklabel                          = re.compile(br"^BSD disklabel \(at sector (?P<sector>\d+)\), \d+ partitions$")
+rx_compress                               = re.compile(br"^compress-compressed data( at sector (?P<sector>\d+))?$")
 rx_cpio_archive                           = re.compile(br"^cpio archive(.*)$")
 rx_data_size                              = re.compile(br"^Data size.+\((?P<num_bytes>\d+) bytes, (?P<block_count>\d+) blocks of (?P<bytes_per_block_unitless>\d+) (?P<bytes_per_block_unit>.+)\)$")
 rx_data_size_no_comma                     = re.compile(br"^Data size (?P<num_bytes>\d+) bytes \((?P<block_count>\d+) blocks of (?P<bytes_per_block_unitless>\d+) (?P<bytes_per_block_unit>.+)\)$")
@@ -503,22 +559,21 @@ rx_disk_meta                              = re.compile(br"^Regular file, size (?
 rx_disk_guid                              = re.compile(br"^Disk GUID (?P<guid>[-0-9A-F]+)$")
 rx_disk_size                              = re.compile(br"^Disk size.+ \((?P<num_bytes>\d+) bytes, (?P<num_blocks>\d+) (?P<block_unit>blocks|sectors).*\)$")
 rx_file_system_uuid                       = re.compile(br"^UUID (?P<uuid>[-0-9A-F]+|nil)(.*)$")
-rx_file_system_includes                   = re.compile(br"^Includes the disklabel and boot code$")  #Phrase hard-coding matches disktype unix.c.
 rx_fs_type_str                            = re.compile(br"^(?P<ftype_str>.+) file system(?P<misc>.*)$")
 rx_fs_type_str_misc_offset                = re.compile(br"(?P<bytes_unitless>\d+) (?P<bytes_unit>.iB) offset")
-rx_gzip                                   = re.compile(br"^gzip-compressed data at sector (?P<sector>\d+)$")
+rx_gzip                                   = re.compile(br"^gzip-compressed data( at sector (?P<sector>\d+))?$")
 rx_input_file                             = re.compile(br"^--- (?P<filepath>.+)$")
 rx_hfs_wrapper                            = re.compile(br"^HFS wrapper for (?P<ftype_label>.+)$")
-rx_iso9660_extension                      = re.compile(br"^(?P<extension>.+) extension, volume name \"(?P<volume_name>.*)\"$")
+rx_iso9660_extension                      = re.compile(br"^(?P<extension>.+) extension, volume name \"(?P<volume_name>.*)\"$", re.DOTALL)
 rx_last_mounted                           = re.compile(br"^Last mounted at \"(?P<filepath>.+)\"$")
 rx_no_type_and_creator_code               = re.compile(br"^No type and creator code$")
-rx_partition_blank_check                  = re.compile(br"^First (?P<range>.+) are blank")
 rx_partition_guid                         = re.compile(br"^Partition GUID (?P<guid>[-0-9A-F]+)$")
-rx_partition_includes                     = re.compile(br"^Includes the disklabel$")  #Phrase hard-coding matches disktype unix.c.
+rx_partition_includes                     = re.compile(br"^Includes the disklabel( and boot code)?$")  #Phrase hard-coding matches disktype unix.c.
+rx_partition_invalid_signature            = re.compile(br"^Partition (?P<partition_index>.+): invalid signature, skipping$")
 rx_partition_map                          = re.compile(br"^(?P<pstype_str>.+) partition map.*$")
 rx_partition_meta_no_size_summary         = re.compile(br"^Partition (?P<partition_index>.+):.+(?P<partition_size_unitless>\d+) (?P<partition_size_unit>.+) \((?P<num_blocks_distance>\d+) (?P<block_unit>(sectors|clusters)) from (?P<from>\d+)(?P<bootable>(, bootable)?)\)")
 rx_partition_meta_size_summary            = re.compile(br"^Partition (?P<partition_index>.+):.+\((?P<partition_size_unitless>\d+) (?P<partition_size_unit>.+), (?P<num_blocks_distance>\d+) (?P<block_unit>(sectors|clusters)) from (?P<from>\d+)(?P<bootable>(, bootable)?)\)")
-rx_partition_name                         = re.compile(br"^Partition Name \"(?P<partition_name>.+)\"$")
+rx_partition_name                         = re.compile(br"^Partition Name \"(?P<partition_name>.+)\"$", re.DOTALL)
 rx_partition_ptype_and_ptype_str          = re.compile(br"^Type (?P<ptype>(0x[0-9A-Fa-f]{2}|\d+)) \((?P<ptype_label>.+)\)$")
 rx_partition_ptype_int                    = re.compile(br"^Type (?P<ptype_label>\d+)$")
 rx_partition_ptype_str                    = re.compile(br"^Type \"(?P<ptype_label>.+)\"$")
@@ -527,15 +582,17 @@ rx_partition_ptype_str_ftype_str_and_guid = re.compile(br"^Type (?P<ptype_label>
 rx_partition_unused                       = re.compile(br"^Partition (?P<partition_index>.+): unused$")
 rx_platform_system_type                   = re.compile(br"^Platform (?P<platform_encoded>.+) \((?P<platform_decoded>.+)\), System Type (?P<system_type_encoded>.+) \((?P<system_type_decoded>.+)\)$")
 rx_preparer                               = re.compile(br"^Preparer +\"(?P<preparer>.+)\"$")
+rx_primary_volume_descriptor_missing      = re.compile(br"^Primary Volume Descriptor missing$")
 rx_publisher                              = re.compile(br"^Publisher +\"(?P<publisher>.+)\"$")
-rx_sector_size                            = re.compile(br"^Sector size (?P<sector_size>\d+) bytes$")
-rx_signature_missing                      = re.compile(br"^Signature missing$")
+rx_sector_size                            = re.compile(br"^(Unusual s|S)ector size (?P<sector_size>\d+) bytes$")
+rx_signature_missing                      = re.compile(br"^Signature missing( in sector (?P<sector>\d+))?$")
 rx_solaris_sparc_disklabel                = re.compile(br"^Solaris SPARC disklabel$")
+rx_solaris_x86_disklabel                  = re.compile(br"^Solaris x86 disklabel, version (?P<version>.+), (?P<partition_count>\d+) partitions$")
 rx_tar_archive                            = re.compile(br"^(GNU|Pre-POSIX) tar archive$")
 rx_udf_recognition_sequence_missingloc    = re.compile(br"^UDF recognition sequence, unable to locate anchor descriptor$")
 rx_udf_version                            = re.compile(br"^UDF version (?P<version>.+)$")
 rx_validation_entry_missing               = re.compile(br"^Validation entry missing$")
-rx_volume_name                            = re.compile(br"^Volume name \"(?P<volume_name>.*)\"(?P<misc>.*)$")
+rx_volume_name                            = re.compile(br"^Volume name \"(?P<volume_name>.*)\"(?P<misc>.*)$", re.DOTALL)
 rx_volume_size_blocks_or_sectors          = re.compile(br"^Volume size.+ \((?P<num_bytes>\d+) bytes, (?P<num_blocks>\d+) (?P<block_unit>blocks|sectors).*\)$")
 rx_volume_size_clusters                   = re.compile(br"^Volume size.+ \((?P<num_bytes>\d+) bytes, (?P<num_clusters>\d+) clusters of (?P<bytes_per_cluster_unitless>\d+) (?P<bytes_per_cluster_unit>.+)\)$")
 rx_volume_size_clusters_no_summary        = re.compile(br"^Volume size.+ \((?P<num_clusters>\d+) clusters of (?P<bytes_per_cluster_unitless>\d+) (?P<bytes_per_cluster_unit>.+)\)$")
@@ -639,9 +696,20 @@ class Parser(object):
             self.transition(ParseState.VOLUME_NAME)
             #Nop.  Information not recorded in DFXML.
 
+        #It is possible for input lines to be broken up by free text containing line break characters.  So far, one case had an application name ending '\r\n' (NSRL sample 12636-1).  Reassemble in that case.
+        def _iter_fh_cleaned_lines():
+            line_buffer = b""
+            for line in fh:
+                _logger.debug("Parsing: %r." % line)
+                line_buffer += line
+                if len(line) > 1 and line[-2:] == b"\r\n":
+                    _logger.debug("Buffering line with embedded '\\r\\n'.")
+                    continue
+                yield line_buffer
+                line_buffer = b""
+
         #Consume the input file handle lines.
-        for (line_no, line) in enumerate(fh):
-            _logger.debug("Parsing: %r." % line)
+        for (line_no, line) in enumerate(_iter_fh_cleaned_lines()):
             self._line_no = line_no+1
 
             self.debug_level_stack()
@@ -670,16 +738,47 @@ class Parser(object):
                     if isinstance(obj, PartitionSystemObject):
                         in_gpt_psobj = (obj.pstype_str == "gpt")
                         break
-                if in_gpt_psobj and self._level_stack[-1][0] == ParseState._PARTITION_SYSTEM_START:
+                in_gpt_partition_table = in_gpt_psobj and self._level_stack[-1][0] == ParseState._PARTITION_SYSTEM_START
+
+                #There used to be an assumption that a single partition wouldn't contain multiple file systems.  However, HFS Plus was originally implemented with an HFS "wrapper" file system (see e.g. NSRL sample 10002-1.txt).  Treat this as a second, adjacent file system within the partition.
+                #(AJN 2017-06-14: It's more correct to nest the HFS+ volume object in the HFS object, because the HFS wrapper encodes the (arbitrary) offset to the embedded HFS+ volume.  Unfortunately, disktype does not emit that offset.)
+                maybe_match0 = rx_hfs_wrapper.search(cleaned_line)
+                next_line_is_hfs_wrapper = not maybe_match0 is None
+                in_file_system = isinstance(self._object_stack[-1], Objects.VolumeObject)
+
+                #One case (NSRL sample 2332-1) indented the volume name of a partition that also had a Solaris disk label.  The indented line followed the disklabel line, but preceded partition definitions.  Check for this case as another instance to skip level popping.
+                #The test here is to look for *any* transition that would trigger a _PARTITION_START transition.  Unfortunately, at the moment, this is hard-coded as extra transition() calls in the line-consuming loop because there are some "Level-starting" triggering transitions that are based on contents of the regular expression matches (e.g. the El Torito level).  This will likely need fixing after six months away from the code and finding a new implementation-challenging sample.
+                #TODO It may be better to consider these indentations as annotation regions, inducing a Level for annotations.
+                maybe_match0 = rx_partition_invalid_signature.search(cleaned_line) \
+                  or rx_partition_meta_no_size_summary.search(cleaned_line) \
+                  or rx_partition_meta_size_summary.search(cleaned_line) \
+                  or rx_partition_unused.search(cleaned_line)
+                about_to_start_partition = not maybe_match0 is None
+                in_partition_system = isinstance(self._object_stack[-1], PartitionSystemObject)
+
+                #This is the same messy check as for 'about_to_start_partition', except FS_TYPE_STR has the added complication of being able to accidentally match text in free-form text entry fields (e.g. volume names that mention a file system).
+                #(AJN 2017-06-14: The sample that hits this indentation corner case: NSRL 7476-1.  An El Torito floppy image had three objects simultaneously starting at sub-image offset 0: a 512-byte long BSD disklabel (per SleuthKit's mmls); the disklabel's first partition (per Disktype); and a UFS file system with a single file "kernel" (per SleuthKit's fiwalk).  For now, I'm considering this to be nested like normal even with its de-indentation fluke.)
+                maybe_match0 = rx_fs_type_str.search(cleaned_line)
+                maybe_match1 = rx_partition_ptype_and_ptype_str.search(cleaned_line) \
+                  or rx_application.search(cleaned_line) \
+                  or rx_publisher.search(cleaned_line) \
+                  or rx_volume_name.search(cleaned_line)
+                about_to_start_file_system = (not maybe_match0 is None) and (maybe_match1 is None)
+                in_partition = isinstance(self._object_stack[-1], PartitionObject)
+
+                if in_gpt_partition_table:
                     _logger.debug("In GPT partition table.  Not popping level.")
+                elif next_line_is_hfs_wrapper and in_file_system:
+                    _logger.debug("Encountered wrapped HFS+ file system.  Not popping level.")
+                elif about_to_start_partition and in_partition_system:
+                    _logger.debug("About to start partition while in partition system level.  Not popping level.")
+                elif about_to_start_file_system and in_partition:
+                    _logger.debug("About to start file system partition while in partition.  Not popping level.")
                 else:
-                    #There used to be an assumption that a single partition wouldn't contain multiple file systems.  However, there are "Wrapper" file systems used in some cases (observed once on an Apple-partitioned CD that wrapped an HFS Plus file system within an HFS file system; see NSRL sample 10002-1.txt).  Check for that case, then fall through if not in that case.
-                    maybe_match0 = rx_hfs_wrapper.search(cleaned_line)
-                    if maybe_match0 is None:
-                        #We're not in a wrapper.  Continue popping, to the topmost level with a matching indentation.
-                        while self._current_indentation < self._level_stack[-1][1]:
-                            self.pop_level()
-                        #After that while loop completes, we've closed inner levels up to the container we actually wanted to close.
+                    #Continue popping, to the topmost level with a matching indentation.
+                    while self._current_indentation < self._level_stack[-1][1]:
+                        self.pop_level()
+                    #After that while loop completes, we've closed inner levels up to the container we actually wanted to close.
                     self.pop_level()
                 _logger.debug("Done handling deindent effects.")
 
@@ -694,6 +793,18 @@ class Parser(object):
                 _handle_application(maybe_match)
                 continue
 
+            maybe_match = rx_bar_archive.search(cleaned_line)
+            if not maybe_match is None:
+                self.transition(ParseState.BAR_ARCHIVE)
+                #Nop.
+                continue
+
+            maybe_match = rx_blank_check.search(cleaned_line)
+            if not maybe_match is None:
+                self.transition(ParseState.BLANK_CHECK)
+                #Nop.
+                continue
+
             maybe_match = rx_blank_medium.search(cleaned_line)
             if not maybe_match is None:
                 self.transition(ParseState.BLANK_MEDIUM)
@@ -706,10 +817,11 @@ class Parser(object):
                 #Nop.
                 continue
 
-            maybe_match = rx_boot_record.search(cleaned_line)
+            maybe_match = rx_boot_record.search(cleaned_line) or rx_boot_record_unknown_format.search(cleaned_line)
             if not maybe_match is None:
-                if maybe_match.group("boot_record_type").decode("utf-8") == "El Torito":
-                    self.transition(ParseState._EL_TORITO_START)
+                if "boot_record_type" in maybe_match.groupdict():
+                    if maybe_match.group("boot_record_type").decode("utf-8") == "El Torito":
+                        self.transition(ParseState._EL_TORITO_START)
                 self.transition(ParseState.BOOT_RECORD)
                 continue
 
@@ -757,7 +869,7 @@ class Parser(object):
                 continue
 
             #This expression only matches on an El Torito boot catalog (see Disktype source, cdrom.c).
-            maybe_match = rx_bootable_nonemulated_image.search(cleaned_line)
+            maybe_match = rx_bootable_nonemulated_image.search(cleaned_line) or rx_bootable_nonemulated_image_summary.search(cleaned_line)
             if not maybe_match is None:
                 #The other "Bootable" regex (rx_bootable_floppy_image) indicates an emulated disk image, so that match triggers a transition to _DISK_START.  This regex, for non-emulated images, doesn't seem to contain further partition/file systems, but for symmetry's sake it will also transition to _DISK_START.
                 self.transition(ParseState._DISK_START)
@@ -788,6 +900,13 @@ class Parser(object):
                 self._object_stack[0].externals.append(pstel) #TODO Maybe enqueue all the encountered partition systems into a set?
 
                 #TODO Set up byte run for partition system?
+                continue
+
+            maybe_match = rx_compress.search(cleaned_line)
+            if not maybe_match is None:
+                self.transition(ParseState._COMPRESSION_START)
+                self.transition(ParseState.COMPRESS)
+                #Nop otherwise.
                 continue
 
             maybe_match = rx_cpio_archive.search(cleaned_line)
@@ -867,12 +986,6 @@ class Parser(object):
                 else:
                     uuidel.text = uuid
                 vobj.externals.append(uuidel)
-                continue
-
-            maybe_match = rx_file_system_includes.search(cleaned_line)
-            if not maybe_match is None:
-                self.transition(ParseState.FILE_SYSTEM_INCLUDES)
-                #Nop.
                 continue
 
             #rx_fs_type_str overlaps with other expressions that sometimes contain the free text "file system" without meaning to refer to a file system type.  Disambiguate.
@@ -965,12 +1078,23 @@ class Parser(object):
             maybe_match = rx_hfs_wrapper.search(cleaned_line)
             if not maybe_match is None:
                 self.transition(ParseState.HFS_WRAPPER)
-                #Nop.  File system starts on next line.
+
+                vobj = self._object_stack[-1]
+                assert isinstance(vobj, Objects.VolumeObject)
+
+                #Note that this is an HFS wrapper.
+                extel = ET.Element("dfxmlext:hfs_wrapping_hfsplus")
+                extel.text = "1"
+                vobj.externals.append(extel)
                 continue
 
             maybe_match = rx_iso9660_extension.search(cleaned_line)
             if not maybe_match is None:
                 self.transition(ParseState.ISO9660_EXTENSION)
+
+                vobj = self._object_stack[-1]
+                assert isinstance(vobj, Objects.VolumeObject)
+
                 extel = ET.Element("dfxmlext:iso9660extension")
                 extel.text = maybe_match.group("extension").decode("utf-8")
                 vobj.externals.append(extel)
@@ -990,12 +1114,6 @@ class Parser(object):
                 continue
 
 
-            maybe_match = rx_partition_blank_check.search(cleaned_line)
-            if not maybe_match is None:
-                self.transition(ParseState.PARTITION_BLANK_CHECK)
-                #Nop.
-                continue
-
             maybe_match = rx_partition_guid.search(cleaned_line)
             if not maybe_match is None:
                 self.transition(ParseState.PARTITION_GUID)
@@ -1008,6 +1126,14 @@ class Parser(object):
             if not maybe_match is None:
                 self.transition(ParseState.PARTITION_INCLUDES)
                 #Nop.
+                continue
+
+            maybe_match = rx_partition_invalid_signature.search(cleaned_line)
+            if not maybe_match is None:
+                self.transition(ParseState._PARTITION_START)
+                self.transition(ParseState.PARTITION_INVALID_SIGNATURE)
+                #There is no information to be gathered on this partition; further, there won't be an indented line following, so just pop the level here.
+                self.pop_level()
                 continue
 
             maybe_match = rx_partition_map.search(cleaned_line)
@@ -1130,6 +1256,12 @@ class Parser(object):
                 #Nop.
                 continue
 
+            maybe_match = rx_primary_volume_descriptor_missing.search(cleaned_line)
+            if not maybe_match is None:
+                self.transition(ParseState.PRIMARY_VOLUME_DESCRIPTOR_MISSING)
+                #Nop.  No further information provided in this pattern.
+                continue
+
             maybe_match = rx_publisher.search(cleaned_line)
             if not maybe_match is None:
                 _handle_publisher(maybe_match)
@@ -1150,10 +1282,10 @@ class Parser(object):
                 #Nop.
                 continue
 
-            maybe_match = rx_solaris_sparc_disklabel.search(cleaned_line)
+            maybe_match = rx_solaris_sparc_disklabel.search(cleaned_line) or rx_solaris_x86_disklabel.search(cleaned_line)
             if not maybe_match is None:
                 self.transition(ParseState._PARTITION_SYSTEM_START)
-                self.transition(ParseState.SOLARIS_SPARC_DISKLABEL)
+                self.transition(ParseState.SOLARIS_DISKLABEL)
 
                 psobj = self._object_stack[-1]
                 assert isinstance(psobj, PartitionSystemObject)
@@ -1218,6 +1350,10 @@ class Parser(object):
                 vobj = self._object_stack[-1]
                 assert isinstance(vobj, Objects.VolumeObject)
 
+                if b"off the scale" in cleaned_line:
+                    #Consider this line to contain bad data.  E.g. NSRL sample 14480-1 supposedly has an El Torito inner disk image that is 18 quintillion bytes.
+                    _logger.debug("Skipping 'off the scale' volume size line.")
+                    continue
                 vobj.block_count = int(maybe_match.group("num_clusters"))
                 vobj.block_size = int(maybe_match.group("bytes_per_cluster_unitless")) * block_units[maybe_match.group("bytes_per_cluster_unit").decode("utf-8")]
 
@@ -1231,7 +1367,8 @@ class Parser(object):
                 self.derive_volume_byte_run(vobj, num_bytes)
                 continue
 
-            raise ValueError("Unparsed line: %r." % line)
+            _logger.debug("Cleaned line form: %r." % cleaned_line)
+            raise ValueError("Unparsed line, line %d: %r." % (self._line_no, line))
         self.transition(ParseState._INPUT_END)
 
         return dobj
@@ -1249,6 +1386,13 @@ class Parser(object):
             self.transition(ParseState._FILE_SYSTEM_END)
             level_popped = self._level_stack.pop()
             object_popped = self._object_stack.pop()
+
+            #Handle attaching HFS+ file systems to wrapping parent HFS file systems here.
+            parent_object = self._object_stack[-1]
+            if hfs_wrapping_hfsplus(parent_object):
+                vel = object_popped.to_Element()
+                vel.tag = "dfxmlext:wrapped_hfsplus_volume"
+                parent_object.externals.append(vel)
         elif self._level_stack[-1][0] == ParseState._PARTITION_START:
             self.transition(ParseState._PARTITION_END)
             level_popped = self._level_stack.pop()
@@ -1357,7 +1501,16 @@ class Parser(object):
         if to_state == ParseState._FILE_SYSTEM_START:
             vobj = Objects.VolumeObject()
             object_pushed = vobj
-            self._object_stack[0].append(vobj)
+
+            #Handle the (currently one) case where a file system directly nests in a file system: HFS+ wrapped in HFS.
+            #Because DFXML doesn't currently support nesting volumes (2017-06-14: language version 1.1.1), make this volume an extension element.
+            parent_object = self._object_stack[-1]
+            if isinstance(parent_object, Objects.VolumeObject):
+                if not hfs_wrapping_hfsplus(parent_object):
+                    raise NotImplementedError("Encountered a file system embedded in another file system, but the parent has not been annotated as an HFS file system wrapping an HFS+ file system (currently, the one expected way for this to occur).  Please report this issue to the disktype_to_dfxml.py maintainer.")
+                #This vobj will have to be converted to an XML Element and have its tag renamed, at stack-popping time.
+            else:
+                self._object_stack[0].append(vobj)
             self._object_stack.append(vobj)
 
             vobj.byte_runs = Objects.ByteRuns()
@@ -1429,6 +1582,18 @@ class Parser(object):
             _logger.debug("No object pushed.")
         else:
             _logger.debug("Object pushed: %s." % object_pushed)
+
+def hfs_wrapping_hfsplus(vobj):
+    if not isinstance(vobj, Objects.VolumeObject):
+        return False
+    if vobj.ftype_str.lower() != "hfs":
+        return False
+    for el in vobj.externals:
+        if el.tag != "dfxmlext:hfs_wrapping_hfsplus":
+            continue
+        if el.text == "1":
+            return True
+    return False
 
 def main():
     with open(args.disktype_out_txt, "rb") as in_fh:

@@ -1,0 +1,6 @@
+
+--- .../nsrl-1036-1.img
+Regular file, size 1.406 MiB (1474560 bytes)
+No type and creator code
+cpio archive, little-endian binary
+

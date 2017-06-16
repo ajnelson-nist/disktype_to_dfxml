@@ -1,0 +1,19 @@
+
+--- .../nsrl-1289-1.img
+Regular file, size 661.1 MiB (693211136 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "OpenLinux eDesktop-2.4 CD1 52"
+  Publisher   "Caldera Systems Inc., PO Box 1920  Orem, UT, 84059-1920, USA"
+  Preparer    "Caldera Systems Inc., Utah"
+  Application "Caldera Systems OpenLinux eDesktop-2.4"
+  Data size 641.8 MiB (672970752 bytes, 328599 blocks of 2 KiB)
+  El Torito boot record, catalog at 1000
+    Bootable 2.88M floppy image, starts at 1001, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      GRUB boot loader, compat version 3.0, boot drive 0xff
+      FAT12 file system (hints score 4 of 5)
+        Volume size 2.809 MiB (2945024 bytes, 1438 clusters of 2 KiB)
+        Volume name "boot288"
+  Joliet extension, volume name "OpenLinux eDeskt"
+

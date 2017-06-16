@@ -1,0 +1,13 @@
+
+--- .../nsrl-2334-1.img
+Regular file, size 5.332 MiB (5591040 bytes)
+No type and creator code
+UDF file system
+  Sector size 2048 bytes
+  Primary Volume Descriptor missing
+ISO9660 file system
+  Volume name "Volume_1"
+  Application "CDUDF File System - Adaptec Inc"
+  Data size 1.654 MiB (1734656 bytes, 847 blocks of 2 KiB)
+  Joliet extension, volume name "Volume_1"
+

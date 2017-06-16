@@ -1,0 +1,15 @@
+
+--- .../nsrl-7316-1.img
+Regular file, size 612.4 MiB (642183168 bytes)
+No type and creator code
+HFS file system
+  Volume name "BeOS_Tools"
+  Volume size 85.05 MiB (89182208 bytes, 43546 blocks of 2 KiB)
+ISO9660 file system
+  Volume name "BeOS_Tools"
+  Data size 85.05 MiB (89184256 bytes, 43547 blocks of 2 KiB)
+  El Torito boot record, catalog at 45
+    Bootable 1.44M floppy image, starts at 16392, preloads 512 bytes
+      Platform 0x00 (x86), System Type 0x00 (Empty)
+      BeOS boot loader
+

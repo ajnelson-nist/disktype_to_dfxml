@@ -1,0 +1,7 @@
+
+--- .../nsrl-9297-1.img
+Regular file, size 1.406 MiB (1474560 bytes)
+No type and creator code
+bar archive
+compress-compressed data at sector 7
+

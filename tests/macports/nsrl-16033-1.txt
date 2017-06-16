@@ -1,0 +1,11 @@
+
+--- .../nsrl-16033-1.img
+Regular file, size 348.9 MiB (365801472 bytes)
+No type and creator code
+ISO9660 file system
+  Volume name "MGXPP40ACD"
+  Preparer    "Tempra CD-Producer,1.2b"
+  Application "Application"
+  Data size 348.5 MiB (365461504 bytes, 178448 blocks of 2 KiB)
+  Signature missing in sector 17
+
