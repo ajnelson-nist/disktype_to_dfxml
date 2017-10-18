@@ -18,4 +18,4 @@ set -e
 
 sudo port install -N \
   disktype \
-  py35-readline
+  python35
