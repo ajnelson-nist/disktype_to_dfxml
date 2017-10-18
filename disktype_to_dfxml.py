@@ -11,7 +11,7 @@
 #
 # We would appreciate acknowledgement if the software is used.
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 import subprocess
 import re
@@ -671,6 +671,9 @@ class Parser(object):
         dobj.program = os.path.basename(sys.argv[0])
         dobj.program_version = __version__
         dobj.command_line = " ".join(sys.argv)
+        dobj.add_creator_library("Python", ".".join(map(str, sys.version_info[0:3]))) #A bit of a bend, but gets the major version information out.
+        dobj.add_creator_library("Objects.py", Objects.__version__)
+        dobj.add_creator_library("dfxml.py", Objects.dfxml.__version__)
         dobj.add_namespace("dfxmlext", XMLNS_DFXML_EXT)
         self._object_stack.append(dobj)
 
